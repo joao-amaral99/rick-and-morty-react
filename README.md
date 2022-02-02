@@ -10,6 +10,8 @@
 * Styled Components
 * Vite
 
+### You also can check this project running [here](https://rick-a-morty-react.netlify.app/)
+
 ## Images:
 
 ![image-01](https://user-images.githubusercontent.com/70384068/152085534-682970cf-4b30-4546-88e6-e3e13cb9fcbe.png)
