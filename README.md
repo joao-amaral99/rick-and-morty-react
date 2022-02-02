@@ -10,6 +10,14 @@
 * Styled Components
 * Vite
 
+## How to run?
+
+```
+$ npm install
+$ npm run dev
+```
+
+
 ### You also can check this project running [here](https://rick-a-morty-react.netlify.app/)
 
 ## Images:
