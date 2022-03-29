@@ -3,9 +3,7 @@ import { Container, Image, Title, ContentWrap, Text } from './styles';
 
 import Modal from '../Modal';
 
-export default function Character(
-  {name, status, image, location, totalEpisode, gender, species}
-  ) {
+export default function Character({ data }) {
   const [ showModal, setShowModal] = useState(false);
 
     function handleClick() {
@@ -16,30 +14,25 @@ export default function Character(
     <>
       <Container onClick={handleClick}>
         <Image 
-          src={image} 
+          src={data.image} 
           alt="Character picture"
           width="100"
           height="90"
         />
         <ContentWrap>
-          <Title>{name}</Title>
-          <Text status={status} alive={'#55CC44'} dead={'#D63D2E'}>{status}</Text>
+          <Title>{data.name}</Title>
+          <Text 
+            status={data.status} 
+            alive={'#55CC44'} dead={'#D63D2E'}
+          >
+            {data.status}
+          </Text>
         </ContentWrap>
       </Container>
 
       {showModal ? (
-        <Modal 
-          name={name}
-          status={status}
-          image={image}
-          location={location}
-          totalEpisode={totalEpisode}
-          gender={gender}
-          species={species}
-          handleClick={handleClick}
-        />
+        <Modal data={data} handleClick={handleClick}/>
       ) : ''}
-      
     </>
   );
 }

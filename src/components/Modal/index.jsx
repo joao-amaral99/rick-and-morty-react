@@ -1,27 +1,24 @@
 import { Container, Image, Title, Text, Btn, Content } from './styles';
 
-export default function Modal(
-  { image, name, status, gender, species, totalEpisode, location, handleClick }
-  ) {
+export default function Modal({ data, handleClick }) {
   return (
     <Container>
-      
       <div>
-        <Image src={image} alt="Character picture" />
+        <Image src={data.image} alt="Character picture" />
       </div>
-      
+
       <Content>
-        <Title>{name}</Title>
-        <Text>Status: <span>{status}</span></Text>
-        <Text>Gender: <span>{gender}</span></Text>
-        <Text>Specie: <span>{species}</span></Text>
-        <Text>Episodes: <span>{totalEpisode}</span></Text>
-        <Text>Location: <span>{location}</span></Text>
+        <Title>{data.name}</Title>
+        <Text>Status: <span>{data.status}</span></Text>
+        <Text>Gender: <span>{data.gender}</span></Text>
+        <Text>Specie: <span>{data.species}</span></Text>
+        <Text>Episodes: <span>{data.episode.length}</span></Text>
+        <Text>Location: <span>{data.location.name}</span></Text>
 
         <Btn onClick={handleClick}>Fechar</Btn>
-      </Content>
-      
-     
+      </Content>     
     </Container>
   );
 }
+
+          

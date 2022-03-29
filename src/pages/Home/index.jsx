@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Container, Image, WrapButton, Btn, BtnDarkMode, Form } from './styles';
+import { Container, Image, WrapButton, Btn, BtnDarkMode } from './styles';
 import { BsSun, BsFillMoonStarsFill } from 'react-icons/bs';
 
 import Character from '../../components/Character'; 
+import SearchBar from '../../components/SearchBar';
 import Logo from '../../assets/rickandmorty.png';
 
 
@@ -10,17 +11,18 @@ export default function Home() {
   const [ characters, setCharacters ] = useState([]);
   const [ darkMode, setDarkMode ] = useState(false);
   const [ page, setPage ] = useState({});
-  const [ inputValue, setInputValue ] = useState('');
-  const [test, setTest] = useState('');
- console.log(test);
-  
+
   const apiURL = `https://rickandmortyapi.com/api/character/`;
 
-  useEffect(async () => {
-    const data = await fetchData(apiURL);
+  useEffect(() => {
+    const fetchCharacters = async () => {
+      const data = await fetchData(apiURL);
 
-    setCharacters(data.results);
-    setPage(data.info);
+      setCharacters(data.results);
+      setPage(data.info);
+    } 
+
+    fetchCharacters();
   }, []);
 
   const fetchData = async (url) => {
@@ -28,7 +30,7 @@ export default function Home() {
     return response.json();
   }
 
-  const getMoreCharacters = async (url) => {
+  const searchCharactersByPage = async (url) => {
     const data = await fetchData(url);
 
     setCharacters(data.results);
@@ -42,14 +44,9 @@ export default function Home() {
     setDarkMode(!darkMode);
   }
 
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    
-    searchCharacter(inputValue.trim());
-  }
+  const onTermSubmit = async (term) => {
+    const data = await fetchData(`${apiURL}?name=${term}`);
 
-  const searchCharacter = async (params) => {
-    const data = await fetchData(`${apiURL}?name=${params}`);
     setCharacters(data.results);
     setPage(data.info);
   }
@@ -68,41 +65,26 @@ export default function Home() {
         }
       </BtnDarkMode>
 
-      <Form onSubmit={handleFormSubmit}>
-        <input 
-          type="text" 
-          placeholder="Busque por algum personagem..."
-          onChange={(e) => setInputValue(e.target.value)} 
-        />
-      </Form>
+      <SearchBar onTermSubmit={onTermSubmit} />
 
       <Container>
-        { characters.map(({ name, image, id, status, species, episode, location, gender }) => (   
-          <Character
-            key={id}
-            image={image} 
-            name={name}
-            status={status}
-            species={species}
-            gender={gender}
-            totalEpisode={episode.length}
-            location={location.name}
-          />
+        { characters.map((data) => (   
+          <Character key={data.id} data={data}/>
         ))}  
       </Container>
 
       <WrapButton>
         {page.prev ? (
-          <Btn onClick={() => getMoreCharacters(page.prev)}>&larr; Prev</Btn>
+          <Btn onClick={() => searchCharactersByPage(page.prev)}>&larr; Prev</Btn>
          ) : (
           <Btn disabled>&larr; Prev</Btn>
         )} 
         {page.next ? (
-          <Btn onClick={() => getMoreCharacters(page.next)}>Next &rarr;</Btn>
+          <Btn onClick={() => searchCharactersByPage(page.next)}>Next &rarr;</Btn>
         ) : (
           <Btn disabled>Next &rarr;</Btn>
         )}
       </WrapButton>
     </>
   );
-}
+};

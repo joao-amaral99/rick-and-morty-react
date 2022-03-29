@@ -30,7 +30,7 @@ export default createGlobalStyle`
   }
 
   .dark-mode {
-    background-color: #333;
+    background-color: #0a0a0b;
   }
 `
 
