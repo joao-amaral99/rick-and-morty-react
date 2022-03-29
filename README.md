@@ -18,7 +18,7 @@ $ yarn dev
 ```
 
 
-### You also can check this project running [here](https://rick-a-morty-react.netlify.app/)
+### You also can check this project running [here](https://rck-and-morty.netlify.app/)
 
 ## Images:
 
