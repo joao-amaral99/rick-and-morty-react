@@ -1,28 +1,26 @@
-import { useState, useEffect } from 'react';
-import { Form } from './styles';
+import { useState, useEffect } from "react";
+import { useDebounce } from "../../hooks/useDebounce";
+import { Input } from "./styles";
 
-const SearchBar = ({ onTermSubmit }) => {
-  const [ term, setTerm ] = useState('');
+const SearchBar = ({ value, onChange }) => {
+  const [displayValue, setDisplayValue] = useState(value);
+  const deboucedChange = useDebounce(onChange, 500);
 
-  const onFormSubmit = (e) => {
-    e.preventDefault();
-
-    onTermSubmit(term.trim());
-  }
+  const handleChange = (e) => {
+    setDisplayValue(e.target.value);
+    deboucedChange(e.target.value);
+  };
 
   return (
     <>
-      <Form onSubmit={onFormSubmit}>
-        <input 
-          type="text" 
-          placeholder="Busque por algum personagem..."
-          value={term}
-          onChange={(e) => setTerm(e.target.value)} 
-        />
-      </Form>
+      <Input
+        type="text"
+        placeholder="Busque por algum personagem..."
+        value={displayValue}
+        onChange={handleChange}
+      />
     </>
   );
-}
+};
 
 export default SearchBar;
-
