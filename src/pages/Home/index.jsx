@@ -10,7 +10,6 @@ export default function Home() {
 	const [characters, setCharacters] = useState([]);
 	const [darkMode, setDarkMode] = useState(false);
 	const [text, setText] = useState('');
-	const [page, setPage] = useState({});
 
 	const apiURL = `https://rickandmortyapi.com/api/character/`;
 
@@ -19,7 +18,6 @@ export default function Home() {
 			const data = await fetchData(apiURL);
 
 			setCharacters(data.results);
-			setPage(data.info);
 		};
 
 		fetchCharacters();
