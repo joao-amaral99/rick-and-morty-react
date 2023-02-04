@@ -10,8 +10,8 @@ This is a project that consumes the rick and morty api, where you can see the ch
 ## Usage
 
 ```
-$ yarn install
-$ yarn start
+$ yarn install or npm install
+$ yarn start or npm run dev
 
 ```
 
