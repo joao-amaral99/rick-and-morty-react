@@ -30,6 +30,7 @@ export default function Home() {
 			if (!data.results) {
 				return null;
 			}
+
 			setCharacters(data.results);
 		};
 
@@ -52,7 +53,7 @@ export default function Home() {
 
 	return (
 		<>
-			<Image src={Logo} alt="Logo image" width="600" height="360" />
+			<Image src={Logo} alt="Logo Rick and Morty" width="600" height="360" />
 			<BtnDarkMode
 				onClick={handleWithDarkMode}
 				darkMode={darkMode}
