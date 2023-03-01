@@ -1,38 +1,32 @@
-import { useState} from 'react';
-import { Container, Image, Title, ContentWrap, Text } from './styles';
+import { useState } from 'react';
+import { Container, ContentWrap, Image, Text, Title } from './styles';
 
 import Modal from '../Modal';
 
 export default function Character({ data }) {
-  const [ showModal, setShowModal] = useState(false);
+	const [modalData, setModalData] = useState(null);
 
-    function handleClick() {
-      setShowModal(!showModal);
-    }
+	function openModal(data) {
+		setModalData(data);
+	}
 
-  return (
-    <>
-      <Container onClick={handleClick}>
-        <Image 
-          src={data.image} 
-          alt="Character picture"
-          width="100"
-          height="90"
-        />
-        <ContentWrap>
-          <Title>{data.name}</Title>
-          <Text 
-            status={data.status} 
-            alive={'#55CC44'} dead={'#D63D2E'}
-          >
-            {data.status}
-          </Text>
-        </ContentWrap>
-      </Container>
+	function closeModal() {
+		setModalData(null);
+	}
 
-      {showModal ? (
-        <Modal data={data} handleClick={handleClick}/>
-      ) : ''}
-    </>
-  );
+	return (
+		<>
+			<Container onClick={() => openModal(data)}>
+				<Image src={data.image} alt={data.name} width="100" height="90" />
+				<ContentWrap>
+					<Title>{data.name}</Title>
+					<Text status={data.status} alive={'#55CC44'} dead={'#D63D2E'}>
+						{data.status}
+					</Text>
+				</ContentWrap>
+			</Container>
+
+			{modalData && <Modal data={data} handleClick={closeModal} />}
+		</>
+	);
 }
