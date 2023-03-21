@@ -1,27 +1,23 @@
 import { useEffect, useState } from 'react';
 import { BsFillMoonStarsFill, BsSun } from 'react-icons/bs';
+import 'react-loading-skeleton/dist/skeleton.css';
+import { useQuery } from 'react-query';
 import { BtnDarkMode, Container, Image } from './styles';
 
 import Logo from '../../assets/rickandmorty.png';
 import Character from '../../components/Character';
 import SearchBar from '../../components/SearchBar';
+const apiURL = `https://rickandmortyapi.com/api/character/`;
+
+const fetchData = async (apiUrl) => {
+	const response = await fetch(apiUrl);
+	return response.json();
+};
 
 export default function Home() {
 	const [characters, setCharacters] = useState([]);
 	const [darkMode, setDarkMode] = useState(false);
 	const [text, setText] = useState('');
-
-	const apiURL = `https://rickandmortyapi.com/api/character/`;
-
-	useEffect(() => {
-		const fetchCharacters = async () => {
-			const data = await fetchData(apiURL);
-
-			setCharacters(data.results);
-		};
-
-		fetchCharacters();
-	}, []);
 
 	useEffect(() => {
 		const fetchCharacterByName = async (text) => {
@@ -37,10 +33,11 @@ export default function Home() {
 		fetchCharacterByName(text);
 	}, [text]);
 
-	const fetchData = async (url) => {
-		const response = await fetch(url);
-		return response.json();
-	};
+	const { data } = useQuery('characters', () => fetchData(apiURL), {
+		onSuccess: (data) => {
+			setCharacters(data.results);
+		},
+	});
 
 	const handleWithDarkMode = () => {
 		const body = document.body;
@@ -66,8 +63,8 @@ export default function Home() {
 			<SearchBar value={text} onChange={(search) => setText(search)} />
 
 			<Container>
-				{characters.map((data) => (
-					<Character key={data.id} data={data} />
+				{characters.map((character) => (
+					<Character key={character.id} data={character} />
 				))}
 			</Container>
 		</>
