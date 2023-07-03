@@ -6,7 +6,7 @@ export const Container = styled.main`
   flex-wrap: wrap;
   gap: 2.5rem 1.5rem;
   justify-content: center;
-  padding-bottom: 3rem;
+  padding-bottom: 2.5rem;
 `;
 
 export const Image = styled.img`
