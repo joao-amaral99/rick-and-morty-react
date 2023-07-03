@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.main`
   align-items: center;
@@ -6,6 +6,7 @@ export const Container = styled.main`
   flex-wrap: wrap;
   gap: 2.5rem 1.5rem;
   justify-content: center;
+  padding-bottom: 3rem;
 `;
 
 export const Image = styled.img`
@@ -41,9 +42,9 @@ export const BtnDarkMode = styled.button`
   position: absolute;
   right: 4rem;
   top: 2rem;
-  
+
   svg {
-    color: ${props => props.darkMode ? props.light : props.dark};
+    color: ${(props) => (props.darkMode ? props.light : props.dark)};
     font-size: 2rem;
   }
 
